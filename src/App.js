@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ProductListContainer from './products-dashboard/product-list/ProductListContainer';
-import Routes from './Routes';
 import './App.css';
 
 class App extends Component {

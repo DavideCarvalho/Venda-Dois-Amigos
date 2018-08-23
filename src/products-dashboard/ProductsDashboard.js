@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import ProductListContainer from './product-list/ProductListContainer';
 import './ProductsDashboard.css';
 
-export default class ProductsDashboard {
+export default class ProductsDashboard extends Component {
   
   render() {
     return (

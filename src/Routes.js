@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import ProductsDashboard from './products-dashboard/ProductsDashboard';
 import App from './App';
 
@@ -12,3 +12,5 @@ const Routes = () => (
     </App>
   </BrowserRouter>
 );
+
+export default Routes;

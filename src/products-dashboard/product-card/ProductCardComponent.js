@@ -9,6 +9,7 @@ const ProductCard = ({ product }) => {
           <figure className="image is-4by3">
             <img
               src={imageSrc}
+              alt={product.name}
             />
           </figure>
         </div>
