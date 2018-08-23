@@ -8,7 +8,6 @@ class App extends Component {
     return (
       <div className="App">
         <main>{this.props.children}</main>
-        {/* <Routes /> */}
       </div>
     );
   }

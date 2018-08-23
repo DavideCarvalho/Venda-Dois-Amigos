@@ -4,11 +4,11 @@ import ProductsDashboard from './products-dashboard/ProductsDashboard';
 import App from './App';
 
 const Routes = () => (
-  <App>
-    <BrowserRouter>
+  <BrowserRouter>
+    <App>
       <Switch>
         <Route exact path='/' component={ProductsDashboard}/>
       </Switch>
-    </BrowserRouter>
-  </App>
+    </App>
+  </BrowserRouter>
 );
