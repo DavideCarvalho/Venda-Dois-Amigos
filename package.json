@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "0.18.0",
     "bulma": "^0.7.1",
+    "pagarme": "3.7.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
@@ -25,5 +27,8 @@
     "icon": "./static/media/icon_pineapple.5d31b188.jpg",
     "color": "#cc004a",
     "createdAt": 1534979719428
+  },
+  "devDependencies": {
+    "dumper.js": "1.1.1"
   }
 }
