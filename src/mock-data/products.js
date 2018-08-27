@@ -1,6 +1,6 @@
 const products = [
   {
-    name: 'Saia'
+    name: 'Saia',
   },
   {
     name: 'Calça Jeans'

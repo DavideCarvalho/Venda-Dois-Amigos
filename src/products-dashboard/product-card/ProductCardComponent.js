@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-  const imageSrc = `${product.name.toLowerCase()}.jpg`;
+  const imageSrc = `images/${product.name.toLowerCase()}.jpg`;
   return (
     <div className="column is-3">
       <div className="card">
@@ -15,7 +16,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="card-content">
           <div className="content">
-            <p className="subtitle is-5 is-spaced">{ product.name }</p>
+            <Link className="subtitle is-5 is-spaced" to={'/product/saia'}>{ product.name }</Link>
           </div>
         </div>
       </div>
