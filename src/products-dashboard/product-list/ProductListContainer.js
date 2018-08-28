@@ -4,10 +4,15 @@ import ProductCardComponent from '../product-card/ProductCardComponent';
 
 
 export default class ProductList extends Component {
+
+  componentWillMount() {
+    this.props.fetchInitialData();
+  }
+
   render() {
     return (
       <div className="columns is-multiline">
-        { products.map((item, id) => <ProductCardComponent key={id} product={item}/> ) }
+        { this.props.products.products.map((item, id) => <ProductCardComponent key={id} product={item}/> ) }
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProductListContainer from './product-list/ProductListContainer';
+import ProductListConnected from './product-list/ProductListConnected';
 import './ProductsDashboard.css';
 
 export default class ProductsDashboard extends Component {
@@ -11,7 +11,7 @@ export default class ProductsDashboard extends Component {
             <h1 className="title">Venda Dois Amigos</h1>
         </div>
         <div className="container">
-          <ProductListContainer />
+          <ProductListConnected />
         </div>
       </div>
     )
