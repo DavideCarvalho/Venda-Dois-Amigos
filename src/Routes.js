@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import ProductsDashboard from './products-dashboard/ProductsDashboard';
-import ProductDetail from './product-detail/ProductDetail';
+import ProductDetailConnected from './product-detail/ProductDetailConnected';
 import App from './App';
 
 import { createStore, applyMiddleware } from 'redux';
@@ -20,7 +20,7 @@ const Routes = () => (
       <App>
         <Switch>
           <Route exact path='/' component={ProductsDashboard}/>
-          <Route path='/product/:productName' component={ProductDetail}/>
+          <Route path='/product/:productName' component={ProductDetailConnected}/>
         </Switch>
       </App>
     </Provider>

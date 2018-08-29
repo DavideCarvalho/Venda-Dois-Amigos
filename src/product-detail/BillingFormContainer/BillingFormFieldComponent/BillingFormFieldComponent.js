@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardFormField = ({changeCardFocus, changeCardState, fieldName, propertyKey, value, maxLength}) => {
+const CardFormField = ({changeBillingState, fieldName, propertyKey, value}) => {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
@@ -10,13 +10,11 @@ const CardFormField = ({changeCardFocus, changeCardState, fieldName, propertyKey
         <div className="field">
           <p className="control">
             <input
-              onFocus={e => changeCardFocus({focusedKey: propertyKey})}
-              onChange={e => changeCardState({propertyKey, value: e.target.value})}
+              onChange={e => changeBillingState({propertyKey, value: e.target.value})}
               value={value}
               className="input is-rounded"
               type="text"
-              placeholder={value}
-              maxLength={maxLength}/>
+              placeholder={value}/>
           </p>
         </div>
       </div>

@@ -8,7 +8,8 @@ export default class ProductsDashboard extends Component {
     return (
       <div>
         <div className="shop-name">
-            <h1 className="title">Venda Dois Amigos</h1>
+            <h1 className="title">Dois Amigos</h1>
+            <hr />
         </div>
         <div className="container">
           <ProductListConnected />

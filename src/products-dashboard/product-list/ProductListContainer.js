@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import products from '../../mock-data/products';
 import ProductCardComponent from '../product-card/ProductCardComponent';
 
 

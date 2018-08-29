@@ -1,113 +1,59 @@
 import React, {Component} from 'react';
 import CardFormFieldComponent from './CardFormFieldComponent/CardFormFieldComponent';
 
-export default class CardForm extends Component {
+class CardForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      formatedColors: '',
-      number: '',
-      name: '',
-      expiry: '',
-      cvc: '',
-      cpf: '',
-      focused: "number"
+  checkIfCardNumberIsValid({ propertyKey, value }) {
+    if (!Number.isInteger(Number(value))) {
+      value = value.substring(0, value.length - 1);
+      return;
     }
+    this.props.changeCardState({propertyKey, value});
   }
 
-  componentWillMount() {
-    const { productName } = this.props.params.match;
+  checkIfExpirationDateIsValid({ propertyKey, value }) {
+    if (value.length < 3) {
+      if (!Number.isInteger(Number(value))) 
+        value = value.substring(0, value.length - 1);
+      this.props.changeCardState({propertyKey, value});
+      return;
+    }
+    if (value.length === 3 && value[2] === '/') {
+      value = value.substring(0, value.length - 1);
+      this.props.changeCardState({propertyKey, value});
+      return;
+    }
+    const firsTwoNumbers = value.substring(0, 2);
+    let rest = value.substring(2, value.length);
+    if (rest.length === 1 && !Number.isInteger(Number(rest))) 
+      return;
+    if (rest[0] === "/") {
+      rest = rest.substring(1, 3);
+      if (!Number.isInteger(Number(rest))) 
+        return
+      }
+    value = `${firsTwoNumbers}/${rest}`;
+    this.props.changeCardState({propertyKey, value})
   }
+
   render() {
     return (
-      <div>
+      <div className="columns is-multiline">
         <div className="column is-12">
-          <CardFormFieldComponent changeCardFocus={e => this.props.changeCardFocus(e)} changeCardState={e => this.props.changeCardState(e)} value={this.props.product.name}/>
+          <CardFormFieldComponent changeCardFocus={e => this.props.changeCardFocus(e)} changeCardState={e => this.checkIfCardNumberIsValid(e)} fieldName={'Número'} propertyKey={'number'} value={this.props.productDetail.cardInformation.number} maxLength={16}/>
+        </div>
+        <div className="column is-6">
+          <CardFormFieldComponent changeCardFocus={e => this.props.changeCardFocus(e)} changeCardState={e => this.checkIfExpirationDateIsValid(e)} fieldName={'Validade'} propertyKey={'expirationDate'} value={this.props.productDetail.cardInformation.expirationDate}/>
+        </div>
+        <div className="column is-6">
+          <CardFormFieldComponent changeCardFocus={e => this.props.changeCardFocus(e)} changeCardState={e => this.props.changeCardState(e)} fieldName={'CVV'} propertyKey={'cvc'} value={this.props.productDetail.cardInformation.cvc}/>
         </div>
         <div className="column is-12">
-          <div className="field is-horizontal">
-            <div className="field-label is-normal">
-              <label className="label">Nome</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <input
-                    onFocus={() => this.changeCardFocus("name")}
-                    onChange={e => this.changeCardState("name", e.target.value)}
-                    value={this.state.name}
-                    className="input is-rounded"
-                    type="email"
-                    placeholder="Nome no cartão"/>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="column is-12">
-          <div className="field is-horizontal">
-            <div className="field-label is-normal">
-              <label className="label">Data de expiração</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <input
-                    onFocus={() => this.changeCardFocus("expiry")}
-                    onChange={e => this.changeCardState("expiry", e.target.value)}
-                    value={this.state.expiry}
-                    className="input is-rounded"
-                    type="text"
-                    maxLength="5"
-                    placeholder="Data de expiração"/>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="column is-12">
-          <div className="field is-horizontal">
-            <div className="field-label is-normal">
-              <label className="label">CVV</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <input
-                    onFocus={() => this.changeCardFocus("cvc")}
-                    onBlur={() => this.changeCardFocus("number")}
-                    onChange={e => this.changeCardState("cvc", e.target.value)}
-                    value={this.state.cvc}
-                    className="input is-rounded"
-                    maxLength="3"
-                    placeholder="CVV"/>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="column is-12">
-          <div className="field is-horizontal">
-            <div className="field-label is-normal">
-              <label className="label">CPF</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <input
-                    className="input is-rounded"
-                    type="text"
-                    placeholder="CPF"
-                    onChange={e => this.changeCardState("cpf", e.target.value)}
-                    value={this.state.cpf}
-                    maxLength="11"/>
-                </p>
-              </div>
-            </div>
-          </div>
+          <CardFormFieldComponent changeCardFocus={e => this.props.changeCardFocus(e)} changeCardState={e => this.props.changeCardState(e)} fieldName={'Nome'}  propertyKey={'holderName'} value={this.props.productDetail.cardInformation.holderName}/>
         </div>
       </div>
     )
   }
 }
+
+export default CardForm;

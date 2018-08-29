@@ -1,4 +1,19 @@
 .shop-name {
-  margin-top: 2%;
-  margin-bottom: 2%;
-};
+  max-width: 960px;
+  margin: auto;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: lighter;
+}
+
+hr {
+  background-color: whitesmoke;
+  border: none;
+  display: block;
+  height: 2px;
+  margin: 0;
+}
