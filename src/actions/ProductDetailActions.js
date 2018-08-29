@@ -107,7 +107,100 @@ export const customerInformationDefaultValues = () =>
     })
   }
 
-export const buyRequest = ({productDetail: {cardInformation, customerInformation}}) =>
+export const buyRequest = async ({productDetail: {cardInformation, customerInformation}}) =>
   dispatch => {
-
+    let expiry = cardInformation.expirationDate;
+    expiry = expiry.substring(0, 2) + expiry.substring(3, expiry.length);
+    const phoneNumbers = [];
+    phoneNumbers.push(customerInformation.phoneNumber);
+    try {
+      const client = await pagarme
+        .client
+        .connect({api_key: API_KEY});
+      const transaction = await client
+        .transactions
+        .create({
+          amount: 100,
+          card_number: cardInformation.number,
+          card_cvv: cardInformation.cvc,
+          card_expiration_date: expiry,
+          card_holder_name: cardInformation.holderName,
+          customer: {
+            external_id: "#3311",
+            name: customerInformation.completeName,
+            type: "individual",
+            country: "br",
+            email: customerInformation.email,
+            documents: [
+              {
+                type: "cpf",
+                number: customerInformation.cpf
+              }
+            ],
+            phone_numbers: phoneNumbers,
+            birthday: "1996-10-25"
+          },
+          billing: {
+            name: "Trinity Moss",
+            address: {
+              country: "br",
+              state: "sp",
+              city: "Cotia",
+              neighborhood: "Rio Cotia",
+              street: "Rua Matrix",
+              street_number: "9999",
+              zipcode: "06714360"
+            }
+          },
+          shipping: {
+            name: "Neo Reeves",
+            fee: 1000,
+            delivery_date: "2000-12-21",
+            expedited: true,
+            address: {
+              country: "br",
+              state: "sp",
+              city: "Cotia",
+              neighborhood: "Rio Cotia",
+              street: "Rua Matrix",
+              street_number: "9999",
+              zipcode: "06714360"
+            }
+          },
+          items: [
+            {
+              id: "r123",
+              title: this.state.product.name,
+              unit_price: Math.floor(this.state.product.value),
+              quantity: 1,
+              tangible: true
+            }
+          ],
+          split_rules: [
+            {
+              recipient_id: "re_cjlei943y016xf96e1bc4jv1x",
+              percentage: 25,
+              liable: true,
+              charge_processing_fee: true
+            },
+            {
+              recipient_id: "re_cjlc7hst2009lu16d5a93zsff",
+              percentage: 15,
+              liable: true,
+              charge_processing_fee: true
+            }, {
+              recipient_id: "re_cjlei9ni8016zf96e97gfnd6l",
+              percentage: 60,
+              liable: true,
+              charge_processing_fee: true
+            }
+          ]
+        });
+      console.log(transaction);
+      if (transaction.status === 'paid') {
+        Promise.resolve({title: 'Comprado', message: 'Produto comprado com sucesso!'});
+      }
+    } catch (e) {
+      Promise.reject(e);
+    }
   }

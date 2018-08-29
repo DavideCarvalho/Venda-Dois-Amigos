@@ -253,6 +253,7 @@ export default class ProductDetail extends Component {
       }
     } catch (e) {
       console.log(e.response);
+      iziToast.error({title:'Erro', message: 'Algum erro aconteceu, por favor, verifique suas informações e tente novamente'});
     }
   }
 
